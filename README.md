@@ -1,6 +1,6 @@
 # 항해99 3기 과제 - 리액트로 달력 만들기 (with.FullCalendar.js)
 
-- firebase를 이용한 배포 ['https://seona-react-calendar.web.app/']
+- firebase를 이용한 배포 : <https://seona-react-calendar.web.app/>
 - fullcalendar 라이브러리를 사용하여 제작
 - 과제 작업 기간 : 2021/10/07 ~ 2021/10/08
 - 과제 제출 이후 개인적으로 개선 후 업데이트 예정
