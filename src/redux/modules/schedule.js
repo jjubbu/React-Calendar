@@ -42,7 +42,6 @@ const getSCH_FB = () => {
     return function (dispatch, getState, {history}) {
         
         const db = firestore.collection("schedule");
-
         
         db
             .get()
@@ -132,7 +131,7 @@ export default handleActions({
     }),
     [DELET_SCH]: (state, action) => produce(state, (draft)=>{
         let idx = draft.list.findIndex((index)=>index.id === action.payload.docID);
-        draft.list.splice(idx);
+        draft.list.splice(idx,1);
         console.log("삭제 후 이벤트 리스트:::",state.list)
     })
 }, initialState);

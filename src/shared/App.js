@@ -12,10 +12,8 @@ function App() {
   return (
     <React.Fragment>
       <ConnectedRouter history={history}>
-     
       <Route path="/" exact component={FullCalendarApp}/>
       <Route path="/add" exact  component={AddSchedule}/>
-      
       </ConnectedRouter>
     </React.Fragment>
   );
