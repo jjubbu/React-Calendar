@@ -7,7 +7,7 @@ import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction';
 
-import {actionCreators as testAction} from "../redux/modules/schedule";
+import {actionCreators as getEventAction} from "../redux/modules/schedule";
 // import { setMonth } from "../redux/modules/month";
 import { isPopup } from "../redux/modules/popup";
 
@@ -31,19 +31,26 @@ const views = {
 }
 
 const FullCalendarApp = () => {
+    const dispatch = useDispatch();
     React.useEffect(() => {
-
-        dispatch(testAction.getSCH_FB());
+        dispatch(getEventAction.getSCH_FB());
     }, []);
-
+    
     const list = useSelector(state => state.schedule.list);
+    let newList = list.filter((event)=>event.done ===false);
+    let onlyDoneList = list.filter((event)=>event.done ===true);
+    const [done, setDone] = React.useState(false);
+    const [buttonText, setbuttonText] = React.useState('> 완료한 일정 보기')
+    
+    
     const is_popup = useSelector(state => state.popup.popup);
     const [day, setday] = React.useState();
-    const [year, setYear] = React.useState();
-    // const [month, setMonth] = React.useState();
-    const dispatch = useDispatch();
+
     
-    let newList = list.filter((event)=>event.done ===false);
+    // const [month, setMonth] = React.useState();
+    
+    
+    
 
     const addButton = () => {
         // console.log('모듈 리스트 :::', list);
@@ -51,7 +58,14 @@ const FullCalendarApp = () => {
     }
     const seeButton =()=>{
         //완료버튼
-        newList = list;
+        if(done === false){
+            setDone(true)
+            setbuttonText('> 진행중인 일정 보기')
+        }else{
+            setDone(false)
+            setbuttonText('> 완료한 일정 보기')
+        }
+        
         
     }
 
@@ -66,22 +80,10 @@ const FullCalendarApp = () => {
     const PrevButton = () => {
         let calendarApi = calendarRef.current.getApi();
         calendarApi.prev();
-
-        // const _monthTag = document.getElementsByClassName('fc-toolbar-title');
-        // const _text = _monthTag[0].innerText;
-        // setYear(_text.split(';')[0]);
-        // setMonth(_text.split(';')[1]);
-        // console.log(_text.split(';')[1]);
     }
     const NextButton = () => {
         let calendarApi = calendarRef.current.getApi();
         calendarApi.next();
-
-        // const _monthTag = document.getElementsByClassName('fc-toolbar-title');
-        // const _text = _monthTag[0].innerText;
-        // setYear(_text.split(';')[0]);
-        // setMonth(_text.split(';')[1]);
-        // console.log(_text.split(';')[1]);
     }
 
     return (
@@ -102,14 +104,14 @@ const FullCalendarApp = () => {
                 initialView="dayGridMonth"
                 headerToolbar={headerCustom}
                 titleFormat={titleCustom}
-                events={newList}
+                events={!done?newList:onlyDoneList}
                 dateClick={schClick}
                 weekends={true}
                 dayMaxEventRows={dayMaxEventRows}
                 views={views}
             />
             <button onClick={addButton}>일정 추가</button>
-            <button onClick={seeButton}>완료된 일정 보기</button>
+            <button onClick={seeButton}>{buttonText}</button>
 
         </React.Fragment>
     )
