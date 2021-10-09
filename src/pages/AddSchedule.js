@@ -33,13 +33,10 @@ const AddSchedule = () => {
         console.log('저장-끝일:::', end);
         console.log('저장-메모:::', memo);
         console.log('저장-태그색상:::', color);
-        dispatch(addAction.addSCH_FB(start, end, color, memo));
-    }
-
-    const controlClass = async (x)=> {
+        if (start === "" || end === "" || memo === ""){
+            alert('일시와 내용을 전부 입력해주세요!')
+        }else{dispatch(addAction.addSCH_FB(start, end, color, memo));}
         
-        // x.target.nextSibling.classList.remove('on');
-        // x.target.previousSibling.classList.remove('on');
     }
 
     return (
