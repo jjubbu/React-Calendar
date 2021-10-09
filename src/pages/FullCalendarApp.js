@@ -45,11 +45,6 @@ const FullCalendarApp = () => {
     
     const is_popup = useSelector(state => state.popup.popup);
     const [day, setday] = React.useState();
-
-    
-    // const [month, setMonth] = React.useState();
-    
-    
     
 
     const addButton = () => {
